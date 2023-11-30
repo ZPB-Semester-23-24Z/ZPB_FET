@@ -9,6 +9,7 @@ A repository containing scripts for determining the basic parameters of a FET tr
     * **Module_1** - Code for module_1
 * **tests**- Tests folder
     * **Module_test_1** - Tests for module_1
+* **configs** - Config File folder
 * **doc**  - Documentation of project
 * **res**  - Resources 
 * **venv** - Virtual Enviroment Python
