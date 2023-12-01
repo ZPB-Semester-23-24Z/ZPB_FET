@@ -68,7 +68,12 @@ The python virtual environment is a set of previously installed libraries. This 
 #### Rules:
 1. Before any work on the repository, you always activate the virtual environment
     * Good Tutorial: https://realpython.com/python-virtual-environments-a-primer/
-2. If you need any libraries, install them using pip
+2. If you need any libraries, install them using pip. And add it with version to requirement.txt
+     * Example requirement.txt file:
+     ```python
+        package_name1 == version1
+        package_name2 == version2
+     ```
 
 #### How use Virtual Enviroment Python
 
@@ -89,6 +94,9 @@ python -m pip install <package-name>
 
 ### Wrinting Tests
 I Know writing tests seems pointless. But they really save a lot of time on debugging
+
+Tests are **run automatically** after **committing** to the repository. If they end in failure, you will receive an e-mail telling you what happened
+
 #### Rules:
 1. Each module should be tested. 
 2. Tests should be placed in the tests folder.
