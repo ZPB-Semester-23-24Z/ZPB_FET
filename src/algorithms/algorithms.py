@@ -26,6 +26,6 @@ def g_ds():
 
     return
 
-def lambda():
+def lambda_():
 
     return

@@ -1,8 +1,17 @@
 import pandas as pd
 import numpy as np
 
-# read by default 1st sheet of an excel file
-dataframe1 = pd.read_excel(r'C:\Users\Karol\Desktop\ZPB\Code\ZPB_FET\res\FETs.xlsx')
+
+class file_reader:
+    path=r"res\FETs.xlsx"
+    df=0
+    def read(self):
+        self.df= pd.read_excel(self.path)
+    def get_df(self):
+        return self.df
+
+
+dataframe1 = pd.read_excel(r'res\FETs.xlsx')
 data_numpy=dataframe1.to_numpy()
 #print(dataframe1)
 #print(data_numpy)
@@ -41,3 +50,5 @@ for x2 in pochodna:
     i2=i2+1
 
 print(pochodna2)
+
+#kminie, czy nie wyliczyć V_T z maximum drugiej pochodnej  funkcji Ids od Vgs
