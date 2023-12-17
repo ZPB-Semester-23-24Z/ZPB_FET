@@ -1,3 +1,4 @@
+[![Python application](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/python-app.yml)
 # Parameterization of the FET transistor
 
 ## Info
