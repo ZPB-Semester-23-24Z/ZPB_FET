@@ -1,4 +1,5 @@
 from tkinter import *
+from graph_window import *
 
 
 class menu_bar:
@@ -7,21 +8,21 @@ class menu_bar:
         self.menubar = Menu(root)
         self.root = root
 
-        #create file menu
+        # create file menu
         filemenu = self.setup_file_menu()
         self.menubar.add_cascade(label="File", menu=filemenu)
 
-        #create edit menu
+        # create edit menu
         helpmenu = self.setup_help_menu()
         self.menubar.add_cascade(label="Help", menu=helpmenu)
 
-    #file menu handlers
+    # file menu handlers
     def filemenu_new(self):
-        #TDOD: add new file handling
+        # TDOD: add new file handling
         pass
 
     def filemenu_open(self):
-        # TDOD: add opne file handling
+        # TDOD: add open file handling
         pass
 
     def filemenu_save(self):
