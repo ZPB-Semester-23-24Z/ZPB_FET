@@ -1,7 +1,9 @@
+[![onPushTest](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/onPushTest.yml/badge.svg)](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/onPushTest.yml)
+![coverage badge](./coverage.svg)
 # Parameterization of the FET transistor
 
 ## Info
-A repository containing scripts for determining the basic parameters of a FET transistor.
+A repository containing software for determining the basic parameters of a FET.
 
 ## Directory structure
 
@@ -42,15 +44,15 @@ It does not define any coding style. But... there are some rules
             And so on... 
             """
         ```
-    * for one spectial line:
+    * for one special line:
         ```python
             # Make a spell (turn a Mother of your Friend into a Car)
             do_magic(spell = "Hokus Pokus Your Mother are Ford Focus!")
         ```
 2. Sign the files
-    * At the begin of the file:
+    * At the beginning of the file:
         ```python
-        __title__       = "README.md"                                                               # filen/module name
+        __title__       = "README.md"                                                               # file/module name
         __author__      = "Konrad Domian, Marcin Władziński, Karol Kosowski, Maciej Mikulski"       # all of us
         __copyright__   = "Copyright 2023, ZPB - Parameterization of the FET transistor team"       # copyrights
         __license__     = "for internal use only"                                                   # licence
@@ -81,7 +83,7 @@ The python virtual environment is a set of previously installed libraries. This 
 ``` python
 .\venv\Scripts\activate
 ```
-##### Dezactive VENV
+##### Deactive VENV
 ``` python
 deactivate
 ```
@@ -92,7 +94,7 @@ python -m pip install <package-name>
 ```
 
 
-### Wrinting Tests
+### Writing Tests
 I Know writing tests seems pointless. But they really save a lot of time on debugging
 
 Tests are **run automatically** after **committing** to the repository. If they end in failure, you will receive an e-mail telling you what happened
@@ -141,7 +143,7 @@ Tests are **run automatically** after **committing** to the repository. If they 
                 calculator.divide(numbers[2], 0)
         ```
 
-#### HOW USE pytest?
+#### HOW TO USE pytest?
 ##### run all tests
 ``` python
 python -m pytest
@@ -155,9 +157,9 @@ pytest tests/test_file.py
 pytest --cov --cov-report=html:coverage_re
 ```
 
-### Recoment Tools
+### Recommended Tools
 
-#### Consol Emulator CMDER (when u use windows)
+#### Console Emulator CMDER (when you use windows)
 **Link**: https://cmder.app/
 
 #### Good IDEs
@@ -167,7 +169,7 @@ Pycharm:
 VsCode:
 **Link**: https://code.visualstudio.com/download
 
-### **Warmings!**
+### **Warnings!**
 Remember that we use Github, so for political correctness the **Master** branch is called **Main**
 
-Modify: 30.11.2023r by KD
+Modified: 17.12.2023r by MW
