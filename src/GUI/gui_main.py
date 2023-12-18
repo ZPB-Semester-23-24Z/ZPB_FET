@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from menu_bar import *
 from graph_window import *
+from parameter_window import *
 import numpy as np
 
 root = Tk()
@@ -19,9 +20,11 @@ graphWindow = graph_window(pw)
 pw.add(graphWindow.get_graph_widget())
 
 # Parameters display
-bot = Checkbutton(pw, text ="Choose Me !")
-bot.pack(side=TOP)
-pw.add(bot)
+parameterWindow = parameter_window(pw)
+pw.add(parameterWindow.get_parameter_widget())
+#bot = Checkbutton(pw, text ="Choose Me !")
+#bot.pack(side=TOP)
+#pw.add(bot)
 
 pw.pack(fill=BOTH, expand=True)
 pw.configure(sashrelief=RAISED)
