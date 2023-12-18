@@ -1,6 +1,15 @@
 from tkinter import *
 from tkinter import ttk
+import matplotlib
 
+
+matplotlib.use('TkAgg')
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg,
+    NavigationToolbar2Tk
+)
 
 class graph_window:
 
@@ -16,14 +25,28 @@ class graph_window:
     def get_graph_widget(self) -> ttk.Notebook:
         return self.tabControl
 
-    def add_tab(self, name: str, text: str):
+    def add_tab(self, name: str, graphTitle: str, xLabel: str, yLabel: str, xdata, ydata):
         newTab = ttk.Frame(self.tabControl)
+
+        fig = Figure(figsize=(5, 4), dpi=100)
+        subplot = fig.add_subplot(111)
+        subplot.plot(xdata, ydata)
+        subplot.set_title(graphTitle)
+        subplot.set_ylabel(yLabel)
+        subplot.set_xlabel(xLabel)
+
         self.tabControl.add(newTab, text=name)
-        ttk.Label(newTab, text=text).pack(expand=True)
+
+        canvas = FigureCanvasTkAgg(fig, master=newTab)  # A tk.DrawingArea.
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
+
+        toolbar = NavigationToolbar2Tk(canvas, newTab)
+        toolbar.update()
+        canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
+
 
     def remove_tab(self, tabNo):
         self.tabControl.forget(tabNo)
 
-    def get_tab_number(self) -> int:
-        tabList = self.tabControl.tabs
-        return tabList.len()
+
