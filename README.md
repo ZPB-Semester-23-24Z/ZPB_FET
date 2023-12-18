@@ -1,4 +1,5 @@
-[![ZPB_FET](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/python-app.yml)
+[![onPushTest](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/onPushTest.yml/badge.svg)](https://github.com/KonradKacperDomian/ZPB_FET/actions/workflows/onPushTest.yml)
+![coverage badge](./coverage.svg)
 # Parameterization of the FET transistor
 
 ## Info
