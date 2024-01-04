@@ -23,9 +23,23 @@ class graph_window:
         ttk.Label(emptyTab, text="Open data file").pack(expand=True)
 
     def get_graph_widget(self) -> ttk.Notebook:
+        """
+        get_graph_widget This function returns created graph widget connected to this class.
+        :return: Graph window widget. Type: ttk.Notebook
+        """
         return self.tabControl
 
     def add_tab(self, name: str, graphTitle: str, xLabel: str, yLabel: str, xdata, ydata):
+        """
+        add_tab This function adds new tab to the graph window on the rightmost position.
+        :param name: Name displayed on the tab in the graph window.
+        :param graphTitle: Title displayed above the graph.
+        :param xLabel: Label of the X axis
+        :param yLabel: Label of the Y axis
+        :param xdata: Array of numbers to be displayed on the X axis.
+        :param ydata: Array of numbers to be displayed on the Y axis.
+        :return: None
+        """
         newTab = ttk.Frame(self.tabControl)
 
         fig = Figure(figsize=(5, 4), dpi=100)
@@ -47,6 +61,15 @@ class graph_window:
 
 
     def remove_tab(self, tabNo):
-        self.tabControl.forget(tabNo)
+        """
+        ramoeve_tab This function removes tab with a given index from the graph window.
+        :param tabNo: INdex of the tab to be removed. First tab has index 0.
+        :return: None
+        """
+        tabNum = len(self.tabControl.tabs())
+        if tabNo < tabNum:
+            self.tabControl.forget(tabNo)
+        else:
+            print("Invalid tab number to remove!")
 
 
