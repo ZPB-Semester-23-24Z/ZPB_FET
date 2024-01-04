@@ -1,6 +1,6 @@
 from tkinter import *
 from graph_window import *
-
+from tkinter import filedialog
 
 class menu_bar:
 
@@ -18,20 +18,35 @@ class menu_bar:
 
     # file menu handlers
     def filemenu_new(self):
-        # TDOD: add new file handling
+        # TODO: add new file handling
         pass
 
     def filemenu_open(self):
-        # TDOD: add open file handling
+        # TODO: might want to change initial directory path and file types
+        filePath = filedialog.askopenfilename(initialdir="/",
+                                              title="Select a File",
+                                              filetypes=(("Excel files",
+                                                          "*.xlsx*"),
+                                                         ("Text files",
+                                                          "*.csv*"),
+                                                         ("all files",
+                                                          "*.*")))
+
+        # TODO: do something with extracted file path
+        print("File Opened: " + filePath)
         pass
 
     def filemenu_save(self):
-        # TDOD: add save file handling
+        # TODO: add save file handling
+        pass
+
+    def filemenu_save_as(self):
+        # TODO: add save as file handling
         pass
 
     #Help menu handlers
     def helpmenu_about(self):
-        # TDOD: add about information
+        # TODO: add about information
         pass
 
 
@@ -52,6 +67,7 @@ class menu_bar:
         filemenu.add_command(label="New", command=self.filemenu_new)
         filemenu.add_command(label="Open", command=self.filemenu_open)
         filemenu.add_command(label="Save", command=self.filemenu_save)
+        filemenu.add_command(label="Save as", command=self.filemenu_save_as)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.root.quit)
         return filemenu
