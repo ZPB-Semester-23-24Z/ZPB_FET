@@ -66,3 +66,21 @@ class parameter_window:
         self.mobilityUintLabel.grid(column=3, row=6, sticky=W)
     def get_parameter_widget(self) -> ttk.Frame:
         return self.mainFrame
+
+    def set_Ion(self, val):
+        self.Ion.set(f'{val:e}')
+
+    def set_Ioff(self, val):
+        self.Ioff.set(f'{val:e}')
+
+    def set_Vt(self, val):
+        self.Vt.set(f'{val:e}')
+
+    def set_SS(self, val):
+        self.SS.set(f'{val:e}')
+
+    def set_lambda(self, val):
+        self.lamb.set(f'{val:e}')
+
+    def set_mobility(self, val):
+        self.mobility.set(f'{val:e}')

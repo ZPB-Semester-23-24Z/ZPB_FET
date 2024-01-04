@@ -22,9 +22,7 @@ pw.add(graphWindow.get_graph_widget())
 # Parameters display
 parameterWindow = parameter_window(pw)
 pw.add(parameterWindow.get_parameter_widget())
-#bot = Checkbutton(pw, text ="Choose Me !")
-#bot.pack(side=TOP)
-#pw.add(bot)
+parameterWindow.set_lambda(21.37420)
 
 pw.pack(fill=BOTH, expand=True)
 pw.configure(sashrelief=RAISED)
