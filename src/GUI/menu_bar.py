@@ -3,7 +3,7 @@ from graph_window import *
 from tkinter import filedialog
 from utils import updata_parameter_window, update_graph_window, calc_all_data_for_new_file
 from transistors import Transistor
-
+import os
 class Menu_bar:
 
     def __init__(self, root, parameterWindow, graphWindow):
@@ -27,7 +27,7 @@ class Menu_bar:
 
     def filemenu_open(self):
         # TODO: might want to change initial directory path and file types
-        filePath = filedialog.askopenfilename(initialdir="/",
+        filePath = filedialog.askopenfilename(initialdir=os.getcwd(),
                                               title="Select a File",
                                               filetypes=(("Excel files",
                                                           "*.xlsx*"),

@@ -18,7 +18,7 @@ def update_graph_window(graphWindow, t):
 
 def calc_all_data_for_new_file(filename):
     # TODO: Przeniesc
-    dataframe1 = pd.read_excel(r'res\FETs.xlsx')
+    dataframe1 = pd.read_excel(filename)
     input=dataframe1.to_numpy()
     t=Transistor(input)
     t.calc_I_on()
@@ -26,7 +26,7 @@ def calc_all_data_for_new_file(filename):
     t.calc_gm()
     t.calc_dgm()
     t.calc_Vth()
-    t.calc_SS()
+    #t.calc_SS()
     t.calc_lambda_()
     t.calc_gds()
     #print(t.gds)
