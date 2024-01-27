@@ -1,7 +1,8 @@
 from Measurement import Measurement
 import pandas as pd
+import threading
 
-class MeasurementMenager():
+class MeasurementMenager(threading.Thread):
 
     Measurements = []
 
