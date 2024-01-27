@@ -29,5 +29,5 @@ def calc_all_data_for_new_file(filename):
     t.calc_SS()
     t.calc_lambda_()
     t.calc_gds()
-    print(t.gds)
+    #print(t.gds)
     return t

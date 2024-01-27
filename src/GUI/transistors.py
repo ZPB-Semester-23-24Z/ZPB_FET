@@ -77,6 +77,7 @@ class Transistor:
         f=SSc[e+1:d+1]
         g=np.average(f)
         self.SS=g
+        
     def calc_lambda_(self):
         #a=np.diff(self.vds)
         #b=np.diff(np.transpose(self.ids_vds))
