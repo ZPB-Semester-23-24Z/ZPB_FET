@@ -17,10 +17,20 @@ class graph_window:
         self.root = root
         # Create empty tab. Tabs with graphs will be created after file is opened.
         self.tabControl = ttk.Notebook(root)
-        emptyTab = ttk.Frame(self.tabControl)
-        self.tabControl.add(emptyTab, text="Tab 1")
-        self.tabControl.pack(expand=1, fill="both")
-        ttk.Label(emptyTab, text="Open data file").pack(expand=True)
+        self.create_empty_plot(800, 600)
+
+    def create_empty_plot(self, width, height):
+        newTab = ttk.Frame(self.tabControl)
+        self.tabControl.add(newTab, text="Open data file")
+
+        fig = Figure(figsize=(width / 100, height / 100), dpi=100)
+        subplot = fig.add_subplot(111)
+
+        subplot.text(0.5, 0.5, "Open data file", ha='center', va='center', fontsize=14, color='gray')
+
+        canvas = FigureCanvasTkAgg(fig, master=newTab)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=TOP, fill='both', expand=1)
 
     def get_graph_widget(self) -> ttk.Notebook:
         """
