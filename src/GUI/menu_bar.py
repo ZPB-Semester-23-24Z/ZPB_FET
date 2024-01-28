@@ -1,11 +1,11 @@
 from tkinter import *
 from graph_window import *
 from tkinter import filedialog
-from utils import updata_parameter_window, update_graph_window, calc_all_data_for_new_file
+from utils import updata_parameter_window, update_graph_window, calc_all_data_for_new_file, update_model
 from transistors import Transistor
 import os
 class Menu_bar:
-
+    Transistors=[]
     def __init__(self, root, parameterWindow, graphWindow):
         self.menubar = Menu(root)
         self.root = root
@@ -39,9 +39,13 @@ class Menu_bar:
         # TODO: do something with extracted file path
         print("File Opened: " + filePath)
         t = calc_all_data_for_new_file(filePath)
+        self.Transistors.append(t)
+        print(self.Transistors[-1].name)
+        self.parameterWindow.Transistors=self.Transistors
+        update_model(self.parameterWindow, t)
         updata_parameter_window(self.parameterWindow, t)
         update_graph_window(self.graphWindow, t)
-        #self.parameterWindow.set_SS(2137.69420)
+
         pass
 
     def filemenu_save(self):

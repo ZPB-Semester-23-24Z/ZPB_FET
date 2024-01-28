@@ -1,9 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 import numpy as np
-
+from utils import update_graph_window, updata_parameter_window
 class parameter_window:
-    def __init__(self, root):
+    Transistors=[]
+    def __init__(self, root,gw):
         self.root = root
         self.mainFrame = ttk.Frame(root, padding="30 30 30 30")
         #self.mainFrame.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -14,7 +15,7 @@ class parameter_window:
         # Setup variable store
         # inital array with 0 and one "empty" model
         self.valArray = np.zeros((6,1))
-
+        self.gw=gw
         self.Ion = StringVar()
         self.Ioff = StringVar()
         self.Vt = StringVar()
@@ -30,17 +31,14 @@ class parameter_window:
 
         # Setup model choice spinbox
         self.modelChoiceLabel = Label(self.mainFrame, text="Model:")
-        self.spinBoxVal = StringVar()
+        self.DropDown = StringVar()
         self.initialModelName = 'No model'
         self.modelList = [self.initialModelName]
-        self.modelChoiceSpinbox = ttk.Spinbox(self.mainFrame,
-                                              values=self.modelList,
-                                              wrap=True,
-                                              textvariable=self.spinBoxVal,
-                                              command=self.spinboxChangedHandler)
+        self.modelDropdown=ttk.Combobox(self.mainFrame,values=self.modelList,textvariable=self.DropDown)
         self.modelChoiceLabel.grid(column=1, row=1)
-        self.modelChoiceSpinbox.grid(column=2, row=1, columnspan=2, sticky=E)
-
+        self.modelDropdown.grid(column=2, row=1, columnspan=2, sticky=E)
+        self.modelDropdown['state'] = 'readonly'
+        self.modelDropdown.bind('<<ComboboxSelected>>', self.Combobox_changed)
         # Setup variable name labels
         self.IonLabel = Label(self.mainFrame, text="Ion")
         self.IoffLabel = Label(self.mainFrame, text="Ioff")
@@ -166,6 +164,11 @@ class parameter_window:
         self.modelChoiceSpinbox.configure(values=self.modelList)  # update model list of the spinbox
 
     def spinboxChangedHandler(self):
-        currModel = self.modelChoiceSpinbox.get()
+        currModel = self.modelDropdown.get()
         modelIndex = self.modelList.index(currModel)  # find index of the model parameters column
         self.updateDisplayedVariables(modelIndex)
+
+    def Combobox_changed(self,event):
+        updata_parameter_window(self,self.Transistors[self.modelDropdown.current()])
+        update_graph_window(self.gw,self.Transistors[self.modelDropdown.current()])
+

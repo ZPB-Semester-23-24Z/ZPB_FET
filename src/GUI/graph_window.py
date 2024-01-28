@@ -89,5 +89,12 @@ class graph_window:
             self.tabControl.forget(tabNo)
         else:
             print("Invalid tab number to remove!")
+    def clear_tabs(self):
+        tabNum = len(self.tabControl.tabs())
+        if tabNum>0:
+            for i in range(0,tabNum):
+                self.tabControl.forget(tabNum-1-i)
+    
+
 
 
