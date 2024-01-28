@@ -29,7 +29,7 @@ class graph_window:
         """
         return self.tabControl
 
-    def add_tab(self, name: str, graphTitle: str, xLabel: str, yLabel: str, xdata, ydata):
+    def add_tab(self, name: str, graphTitle: str, xLabel: str, yLabel: str, xdata, ydata,log=False):
         """
         add_tab This function adds new tab to the graph window on the rightmost position.
         :param name: Name displayed on the tab in the graph window.
@@ -44,10 +44,18 @@ class graph_window:
 
         fig = Figure(figsize=(5, 4), dpi=100)
         subplot = fig.add_subplot(111)
-        subplot.plot(xdata, ydata)
+        if(log==True):
+            subplot.semilogy(xdata, ydata)
+        elif(log==False):
+            subplot.plot(xdata, ydata)
+
         subplot.set_title(graphTitle)
         subplot.set_ylabel(yLabel)
         subplot.set_xlabel(xLabel)
+        #subplot.grid(which='both')
+        subplot.grid(which='minor',alpha=0.2)
+        subplot.grid(which='major',alpha=0.5)
+        subplot.minorticks_on()
 
         self.tabControl.add(newTab, text=name)
 

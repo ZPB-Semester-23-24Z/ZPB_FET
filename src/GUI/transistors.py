@@ -1,5 +1,5 @@
 import numpy as np
-
+from scipy.interpolate import CubicSpline 
 class Transistor:
     xgm=0
     xdgm=0
@@ -12,12 +12,31 @@ class Transistor:
     ids_vgs=0
     ids_vds=0
     vds=0
+    i_vds=0
+    i_ids_vds=0
+    i_ids_vgs=0
+    i_vgs=0
     I_off=0
     I_on=0
     lambda_=0
     lambda_2=0
     VGS=[0,1,2,3,4,5]
-
+    def interpolate_gds(self):
+        self.i_ids_vds=[]
+        x=np.linspace(self.vds[0],self.vds[-1],100*len(self.vds))
+        for i in range(0,len(self.VGS)):
+            p=np.polyfit(list(self.vds),list(self.ids_vds[:,i]),10)
+            y=np.polyval(p,np.array(x))
+            self.i_ids_vds.append(y)
+        self.i_ids_vds=np.array(self.i_ids_vds).T.tolist()
+        self.i_vds=x
+    def interpolate_ivgs(self):
+        self.i_ids_vgs=[]
+        x=np.linspace(self.vgs[0],self.vgs[-1],100*len(self.vgs))
+        p=np.polyfit(list(self.vgs),list(self.ids_vgs),10)
+        self.i_ids_vgs=np.polyval(p,np.array(x))
+        self.i_vgs=x
+    
     def __init__(self,input) -> None:
         self.vds=input[1:52,4]
         self.ids_vgs=input[1:72,2]
@@ -40,11 +59,10 @@ class Transistor:
         self.xgm=self.xgm[1:]
         self.gm=c
     def calc_gds(self):
-        self.xgds=self.vds
+        self.xgds=self.i_vds
         self.gds=[]
-        for i in range(0,self.ids_vds.shape[1]):
-            print(i)
-            a=np.diff(self.ids_vds[:,i],1)
+        for i in range(0,len(self.VGS)):
+            a=np.diff(np.array(self.i_ids_vds)[:,i],1)
             b=np.diff(self.xgds)
             c=np.divide(a,b)
             self.gds.append(c)
@@ -67,14 +85,16 @@ class Transistor:
         Vcross=np.roots(p)
         self.vth=Vcross
     def calc_SS(self):
-        a=self.vgs
-        b=self.ids_vgs.tolist()
+        b=abs(self.ids_vgs).tolist()
+        a=np.linspace(self.vgs[0],self.vgs[-1],100*len(self.vgs))
+        cs=CubicSpline(self.vgs,self.ids_vgs)
+        b=cs(a)
 
         c=np.divide(np.diff(a),np.diff(np.log10(b)))
         SSc=c
-        d=np.argmin(abs(a-self.vth+25e-3))
-        e=np.argmin(abs(a-25e-3))
-        f=SSc[e+1:d+1]
+        d=np.argmin(abs(a-self.vth+100e-3))
+        e=np.argmin(abs(a-self.vth+25e-3))
+        f=SSc[d-1:e+1]
         g=np.average(f)
         self.SS=g
         
@@ -86,8 +106,8 @@ class Transistor:
         g=[]
         h=[]
         k=self.VGS
-        e=self.vds
-        f=self.ids_vds
+        e=np.array(self.i_vds)
+        f=np.array(self.i_ids_vds)
         m=[]
         #self.lambda_=np.divide(b,np.transpose(self.ids_vds[1:,]))
         for j in range(0,f.shape[1]):
@@ -95,7 +115,7 @@ class Transistor:
             hh=k[j]-self.vth+50e-3
             h=max(hh[0],100e-3)
             m.append(np.argmin(abs(e-h)))
-            for i in range(0,len(self.vds)-1 ): 
+            for i in range(0,len(self.i_vds)-1 ): 
                 d.append(np.divide((f[i+1,j]-f[i,j]),(f[i,j]*e[i+1]-f[i+1,j]*e[i])))
             g.append(np.transpose(d))
         

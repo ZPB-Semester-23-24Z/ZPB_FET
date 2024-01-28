@@ -1,6 +1,8 @@
 import pandas as pd
 from transistors import Transistor
-
+from scipy.optimize import curve_fit
+import numpy as np
+from scipy.interpolate import CubicSpline
 def updata_parameter_window(parameterWindow, t):
     parameterWindow.set_Ion(t.I_on)
     parameterWindow.set_Ioff(t.I_off)
@@ -10,10 +12,11 @@ def updata_parameter_window(parameterWindow, t):
 
 def update_graph_window(graphWindow, t):    
     graphWindow.add_tab("Transfer characteristics", "Transfer characteristics", "X", "Y", t.vgs, t.ids_vgs)
-    graphWindow.add_tab("Output characteristics", "Output characteristics", "X", "Y", t.vds, t.ids_vds)
+    graphWindow.add_tab("Transfer characteristics-log", "Transfer characteristics-log", "X", "Y", t.vgs, t.ids_vgs,log=True)
+    graphWindow.add_tab("Output characteristics", "Output characteristics", "X", "Y", t.i_vds, t.i_ids_vds)
+    #graphWindow.add_tab("Output characteristics", "Output characteristics", "X", "Y", x, y)
     graphWindow.add_tab("gm", "gm", "X", "Y", t.xgm, t.gm)
     graphWindow.add_tab("gds", "gds", "X", "Y", t.xgds, t.gds)
-
     graphWindow.remove_tab(0)
 
 def calc_all_data_for_new_file(filename):
@@ -21,12 +24,14 @@ def calc_all_data_for_new_file(filename):
     dataframe1 = pd.read_excel(filename)
     input=dataframe1.to_numpy()
     t=Transistor(input)
+    t.interpolate_gds()
+    t.interpolate_ivgs()
     t.calc_I_on()
     t.calc_I_off()
     t.calc_gm()
     t.calc_dgm()
     t.calc_Vth()
-    #t.calc_SS()
+    t.calc_SS()
     t.calc_lambda_()
     t.calc_gds()
     #print(t.gds)
