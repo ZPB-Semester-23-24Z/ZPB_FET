@@ -30,13 +30,13 @@ class parameter_window:
 
         # Setup model choice spinbox
         self.modelChoiceLabel = Label(self.mainFrame, text="Model:")
-        self.spinBoaxVal = StringVar()
+        self.spinBoxVal = StringVar()
         self.initialModelName = 'No model'
         self.modelList = [self.initialModelName]
         self.modelChoiceSpinbox = ttk.Spinbox(self.mainFrame,
                                               values=self.modelList,
                                               wrap=True,
-                                              textvariable=self.spinBoaxVal,
+                                              textvariable=self.spinBoxVal,
                                               command=self.spinboxChangedHandler)
         self.modelChoiceLabel.grid(column=1, row=1)
         self.modelChoiceSpinbox.grid(column=2, row=1, columnspan=2, sticky=E)
@@ -136,9 +136,33 @@ class parameter_window:
         self.modelChoiceSpinbox.set(modelName)
 
     def removeModelParameters(self, modelName):
+        # TODO: dodać wyjątek obsługujący usunięcie nieistniejącego modelu
         modelIndex = self.modelList.index(modelName)
         self.modelList.pop(modelIndex)  # delete selected model name
         self.valArray = np.delete(self.valArray, modelIndex, 1)  # delete selected column
+        print(self.spinBoxVal.get())
+        if len(self.modelList) > 0:  # there are still models to be displayed
+            if self.spinBoxVal.get() == modelName:  # deleted model was displayed
+                if modelIndex == 0:  # deleted model was first in the list
+                    # display new first model
+                    self.modelChoiceSpinbox.set(self.modelList[0])
+                    self.updateDisplayedVariables(0)
+                else:
+                    # display previous element
+                    self.modelChoiceSpinbox.set(self.modelList[modelIndex-1])
+                    self.updateDisplayedVariables(modelIndex-1)
+        else:  # there are no models, set the spinbox to "No model" state
+            self.modelList.append(self.initialModelName)
+            self.modelChoiceSpinbox.set(self.modelList[0])
+            self.valArray = np.zeros((6, 1))
+
+            self.Ion.set(f'{self.valArray[0][0]:e}')
+            self.Ioff.set(f'{self.valArray[1][0]:e}')
+            self.Vt.set(f'{self.valArray[2][0]:e}')
+            self.SS.set(f'{self.valArray[3][0]:e}')
+            self.lamb.set(f'{self.valArray[4][0]:e}')
+            # self.mobility.set(f'{self.valArray[5][0]:e}')
+
         self.modelChoiceSpinbox.configure(values=self.modelList)  # update model list of the spinbox
 
     def spinboxChangedHandler(self):

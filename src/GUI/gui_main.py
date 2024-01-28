@@ -38,6 +38,9 @@ pw.configure(sashrelief=RAISED)
 # example use of new parameter window methods:
 # parameterWindow.addModelParameters('A', 1.0, 3.0, 4.8, 23.0, 123.0,1.2)
 # parameterWindow.addModelParameters('B', 2.0, 3.0, 4.8, 23.0, 123.0,1.2)
+# parameterWindow.addModelParameters('C', 3.0, 3.0, 4.8, 23.0, 123.0,1.2)
+# parameterWindow.removeModelParameters('A')
 # parameterWindow.removeModelParameters('B')
+# parameterWindow.removeModelParameters('C')
 
 root.mainloop()
