@@ -2,6 +2,7 @@ from tkinter import ttk, BOTH
 import numpy as np
 from graph_window import graph_window
 from tkinter import *
+from menu_bar import *
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib.figure import Figure
@@ -114,12 +115,12 @@ class CompareCharsWindow():
         canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
 
     def add_tabs(self, transistor_array, active_trans_array):
-        graphWindow.remove_all_tab()
-        graphWindow.add_tab("Transfer characteristics", "Transfer characteristics", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array)
-        graphWindow.add_tab("Transfer characteristics-log", "Transfer characteristics-log", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array, log=True)
-        graphWindow.add_tab("Output characteristics", "Output characteristics", "Vds [V]", "Ids [A]", transistor_array, "i_vds", "i_ids_vds", active_trans_array)
-        graphWindow.add_tab("gm", "gm", "Vgs [V]", "gm [S]", transistor_array , "xgm", "gm", active_trans_array)
-        graphWindow.add_tab("gds", "gds", "Vds [V]", "gds [S]", transistor_array , "xgds", "gds", active_trans_array)
+        self.remove_all_tab()
+        self.add_tab("Transfer characteristics", "Transfer characteristics", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array)
+        self.add_tab("Transfer characteristics-log", "Transfer characteristics-log", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array, log=True)
+        self.add_tab("Output characteristics", "Output characteristics", "Vds [V]", "Ids [A]", transistor_array, "i_vds", "i_ids_vds", active_trans_array)
+        self.add_tab("gm", "gm", "Vgs [V]", "gm [S]", transistor_array , "xgm", "gm", active_trans_array)
+        self.add_tab("gds", "gds", "Vds [V]", "gds [S]", transistor_array , "xgds", "gds", active_trans_array)
 
     def remove_all_tab(self):
         for i in range(0, len(self.tabControl.tabs())):
@@ -132,29 +133,11 @@ if __name__ == "__main__":
     root = Tk()
     root.title("ZPB FET")
 
-    t_array = []
-    t_array.append(calc_all_data_for_new_file("res/FET1.xlsx"))
-    t_array.append(calc_all_data_for_new_file("res/FETs_1.xlsx"))
-    t_array.append(calc_all_data_for_new_file("res/FETs_2.xlsx"))
-    t_array.append(calc_all_data_for_new_file("res/FETs.xlsx"))
-
-    # Create a paned window for displaying widgets
-    pw = PanedWindow(orient='horizontal')
-    # Insert display widgets into the paned window
-    # Graph window
-    graphWindow = CompareCharsWindow(pw)
-    pw.add(graphWindow.get_graph_widget())
-
-    # Parameters display
-    parameterWindow = CompareWindow(pw, t_array, graphWindow)
-    pw.add(parameterWindow.get_parameter_widget())
-    # updata_parameter_window(parameterWindow, t)
-
-    # Add a menu bar to the program window
-    menu = Menu_bar(root, parameterWindow, graphWindow)
+    
+    
+    menu = Menu_bar(root)
     root.config(menu=menu.get_menu_bar())
 
-    pw.pack(fill=BOTH, expand=True)
-    pw.configure(sashrelief=RAISED)
+    
 
     root.mainloop()

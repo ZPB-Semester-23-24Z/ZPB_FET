@@ -11,23 +11,19 @@ from utils import updata_parameter_window, update_graph_window, calc_all_data_fo
 root = Tk()
 root.title("ZPB FET")
 # Create paned window for display widgets
-pw = PanedWindow(orient='horizontal')
+#pw = PanedWindow(orient='horizontal')
 # Insert display widgets into paned window
 # Graph window
-graphWindow = graph_window(pw)
+#graphWindow = graph_window(pw)
 
-pw.add(graphWindow.get_graph_widget())
+#pw.add(graphWindow.get_graph_widget())
 
 # Parameters display
-parameterWindow = parameter_window(pw,graphWindow)
-pw.add(parameterWindow.get_parameter_widget())
+#parameterWindow = parameter_window(pw,graphWindow)
+#pw.add(parameterWindow.get_parameter_widget())
 
 # Add menu bar to the program window
-menu = Menu_bar(root, parameterWindow, graphWindow)
+menu = Menu_bar(root)
 root.config(menu=menu.get_menu_bar())
-
-
-pw.pack(fill=BOTH, expand=True)
-pw.configure(sashrelief=RAISED)
 
 root.mainloop()
