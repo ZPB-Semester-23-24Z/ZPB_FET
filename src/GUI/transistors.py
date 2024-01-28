@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.interpolate import CubicSpline 
 class Transistor:
+    name="Unnamed"
     xgm=0
     xdgm=0
     xgds=0
@@ -37,12 +38,13 @@ class Transistor:
         self.i_ids_vgs=np.polyval(p,np.array(x))
         self.i_vgs=x
     
-    def __init__(self,input) -> None:
+    def __init__(self,input, name) -> None:
         self.vds=input[1:52,4]
         self.ids_vgs=input[1:72,2]
         self.ids_vds=input[1:52,5:11]
         self.vgs=input[1:72,1]
-        pass
+        self.name = name
+
     def calc_I_off(self):
         a=np.argmin(abs(self.vgs))
         self.I_off=self.ids_vgs[a]

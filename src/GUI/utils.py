@@ -23,7 +23,7 @@ def calc_all_data_for_new_file(filename):
     # TODO: Przeniesc
     dataframe1 = pd.read_excel(filename)
     input=dataframe1.to_numpy()
-    t=Transistor(input)
+    t=Transistor(input, filename.split("/")[-1].split(".")[0])
     t.interpolate_gds()
     t.interpolate_ivgs()
     t.calc_I_on()
