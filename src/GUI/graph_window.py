@@ -20,15 +20,18 @@ class graph_window:
         self.create_empty_plot(800, 600)
 
     def create_empty_plot(self, width, height):
-        newTab = ttk.Frame(self.tabControl)
-        self.tabControl.add(newTab, text="Open data file")
+        graphWindow = ttk.Frame(self.tabControl)
+        self.tabControl.add(graphWindow, text="Open data file")
 
         fig = Figure(figsize=(width / 100, height / 100), dpi=100)
         subplot = fig.add_subplot(111)
 
         subplot.text(0.5, 0.5, "Open data file", ha='center', va='center', fontsize=14, color='gray')
+        subplot.grid(which='minor',alpha=0.2)
+        subplot.grid(which='major',alpha=0.5)
+        subplot.minorticks_on()
 
-        canvas = FigureCanvasTkAgg(fig, master=newTab)
+        canvas = FigureCanvasTkAgg(fig, master=graphWindow)
         canvas.draw()
         canvas.get_tk_widget().pack(side=TOP, fill='both', expand=1)
 
@@ -52,7 +55,7 @@ class graph_window:
         """
         newTab = ttk.Frame(self.tabControl)
 
-        fig = Figure(figsize=(5, 4), dpi=100)
+        fig = Figure(figsize=(800 / 100, 600 / 100), dpi=100)
         subplot = fig.add_subplot(111)
         if(log==True):
             subplot.semilogy(xdata, ydata)

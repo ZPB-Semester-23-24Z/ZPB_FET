@@ -2,7 +2,6 @@ from tkinter import ttk, BOTH
 import numpy as np
 from graph_window import graph_window
 from tkinter import *
-from menu_bar import *
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib.figure import Figure
@@ -11,18 +10,6 @@ from matplotlib.backends.backend_tkagg import (
     NavigationToolbar2Tk
 )
 import matplotlib.cm as cm
-
-# TODO: DELETE ALL IMPORTs bellow
-from tkinter import *
-from tkinter import ttk
-from menu_bar import *
-from graph_window import *
-from parameter_window import *
-from transistors import Transistor
-import numpy as np
-import pandas as pd
-from utils import updata_parameter_window, update_graph_window, calc_all_data_for_new_file
-
 
 class CompareWindow():
 
@@ -71,14 +58,27 @@ class CompareCharsWindow():
     def __init__(self, root):
         self.root = root
         # Create empty tab. Tabs with graphs will be created after the file is opened.
-        self.tabControl = ttk.Notebook(root)
-        emptyTab = ttk.Frame(self.tabControl)
-        self.tabControl.add(emptyTab, text="Tab 1")
-        self.tabControl.pack(expand=1, fill="both")
-        ttk.Label(emptyTab, text="Check data to compare").pack(expand=True)
+        self.tabControl = ttk.Notebook(root)        
+        self.create_empty_plot(800, 600)
 
     def get_graph_widget(self) -> ttk.Notebook:
         return self.tabControl
+    
+    def create_empty_plot(self, width, height):
+        newTab = ttk.Frame(self.tabControl)
+        self.tabControl.add(newTab, text="Open data file to Compare")
+
+        fig = Figure(figsize=(width / 100, height / 100), dpi=100)
+        subplot = fig.add_subplot(111)
+
+        subplot.text(0.5, 0.5, "Open data file to Compare", ha='center', va='center', fontsize=14, color='gray')
+        subplot.grid(which='minor',alpha=0.2)
+        subplot.grid(which='major',alpha=0.5)
+        subplot.minorticks_on()
+
+        canvas = FigureCanvasTkAgg(fig, master=newTab)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=TOP, fill='both', expand=1)
 
     def add_tab(self, name: str, graphTitle: str, xLabel: str, yLabel: str, transistors_array, x_param, y_param, active_trans_array, log=False):
         newTab = ttk.Frame(self.tabControl)
@@ -115,29 +115,15 @@ class CompareCharsWindow():
         canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
 
     def add_tabs(self, transistor_array, active_trans_array):
-        self.remove_all_tab()
-        self.add_tab("Transfer characteristics", "Transfer characteristics", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array)
-        self.add_tab("Transfer characteristics-log", "Transfer characteristics-log", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array, log=True)
-        self.add_tab("Output characteristics", "Output characteristics", "Vds [V]", "Ids [A]", transistor_array, "i_vds", "i_ids_vds", active_trans_array)
-        self.add_tab("gm", "gm", "Vgs [V]", "gm [S]", transistor_array , "xgm", "gm", active_trans_array)
-        self.add_tab("gds", "gds", "Vds [V]", "gds [S]", transistor_array , "xgds", "gds", active_trans_array)
+            self.remove_all_tab()
+            self.add_tab("Transfer characteristics", "Transfer characteristics", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array)
+            self.add_tab("Transfer characteristics-log", "Transfer characteristics-log", "Vgs [V]", "Ids [A]", transistor_array, "vgs", "ids_vgs", active_trans_array, log=True)
+            self.add_tab("Output characteristics", "Output characteristics", "Vds [V]", "Ids [A]", transistor_array, "i_vds", "i_ids_vds", active_trans_array)
+            self.add_tab("gm", "gm", "Vgs [V]", "gm [S]", transistor_array , "xgm", "gm", active_trans_array)
+            self.add_tab("gds", "gds", "Vds [V]", "gds [S]", transistor_array , "xgds", "gds", active_trans_array)
 
     def remove_all_tab(self):
         for i in range(0, len(self.tabControl.tabs())):
             self.tabControl.forget(0)
 
-## EXAMPLE OF USE DONT USE THIS FILE SEPARATELY!
 
-if __name__ == "__main__":
-
-    root = Tk()
-    root.title("ZPB FET")
-
-    
-    
-    menu = Menu_bar(root)
-    root.config(menu=menu.get_menu_bar())
-
-    
-
-    root.mainloop()

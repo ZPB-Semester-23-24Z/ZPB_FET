@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import ttk
 import numpy as np
-from utils import update_graph_window, updata_parameter_window
+from utils import update_graph_window, updata_parameter_window, update_model
 class parameter_window:
     Transistors=[]
-    def __init__(self, root,gw):
+    def __init__(self, root,gw, Transistors=[]):
+        self.Transistors = Transistors
         self.root = root
         self.mainFrame = ttk.Frame(root, padding="30 30 30 30")
         #self.mainFrame.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -83,6 +84,7 @@ class parameter_window:
         self.SSUintLabel.grid(column=3, row=5, sticky=W)
         self.lambdaUintLabel.grid(column=3, row=6, sticky=W)
         #self.mobilityUintLabel.grid(column=3, row=7, sticky=W)
+
     def get_parameter_widget(self) -> ttk.Frame:
         return self.mainFrame
 
