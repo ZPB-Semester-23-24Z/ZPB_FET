@@ -1,8 +1,5 @@
 import pandas as pd
 from transistors import Transistor
-from scipy.optimize import curve_fit
-import numpy as np
-from scipy.interpolate import CubicSpline
 from compare_window import CompareWindow, CompareCharsWindow
 
 def updata_parameter_window(parameterWindow, t):

@@ -94,7 +94,7 @@ class Measurement(threading.Thread):
         self.xgds=self.vds
         self.gds=[]
         for i in range(0,self.ids_vds.shape[1]):
-            print(i)
+            #print(i)
             a=np.diff(self.ids_vds[:,i],1)
             b=np.diff(self.xgds)
             c=np.divide(a,b)

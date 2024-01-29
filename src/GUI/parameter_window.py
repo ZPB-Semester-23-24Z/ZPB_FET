@@ -140,7 +140,7 @@ class parameter_window:
         modelIndex = self.modelList.index(modelName)
         self.modelList.pop(modelIndex)  # delete selected model name
         self.valArray = np.delete(self.valArray, modelIndex, 1)  # delete selected column
-        print(self.spinBoxVal.get())
+        #print(self.spinBoxVal.get())
         if len(self.modelList) > 0:  # there are still models to be displayed
             if self.spinBoxVal.get() == modelName:  # deleted model was displayed
                 if modelIndex == 0:  # deleted model was first in the list

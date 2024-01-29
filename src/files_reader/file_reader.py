@@ -127,10 +127,10 @@ t.calc_SS()
 t.calc_lambda_()
 
 
-print(t.I_on)
-print(t.I_off)
-print(t.vth[0])
-print(t.lambda_2)
+#print(t.I_on)
+#print(t.I_off)
+#print(t.vth[0])
+#print(t.lambda_2)
 
 
 plt.figure()

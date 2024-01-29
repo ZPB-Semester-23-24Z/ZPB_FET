@@ -4,7 +4,6 @@ from parameter_window import *
 from compare_window import *
 from tkinter import filedialog
 from utils import updata_parameter_window, update_graph_window, calc_all_data_for_new_file, update_model
-from transistors import Transistor
 import os
 
 class Menu_bar:
@@ -44,10 +43,10 @@ class Menu_bar:
                                                          ("Text files", "*.csv*"),
                                                          ("all files", "*.*")))
 
-        print("File Opened: " + filePath)
+        #print("File Opened: " + filePath)
         t = calc_all_data_for_new_file(filePath)
         self.Transistors.append(t)
-        print(self.Transistors[-1].name)
+        #print(self.Transistors[-1].name)
         self.parameterWindow.Transistors = self.Transistors
         update_model(self.parameterWindow, t)
         updata_parameter_window(self.parameterWindow, t)
